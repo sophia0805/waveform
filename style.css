@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#canvas {
+    width: 100vw;
+    height: 80vh;
+    display: block;
+}
+
+.play-button {
+    top: 0;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: black;
+    border: black 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.play-button:hover {
+    background-color: #333333;
+}
+
+.upload-button {
+    position: relative;
+    display: inline-block;
+}
+.upload-input {
+    opacity: 0;
+    cursor: pointer;
+    z-index: -100;
+    transform: translateX(-5vw);
+}
+.upload-button {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: black;
+    border: black 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.upload-button:hover {
+    background-color: #333333;
+}
