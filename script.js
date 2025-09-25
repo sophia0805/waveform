@@ -1,30 +1,31 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 const analyser = audioContext.createAnalyser();
-const button = document.getElementById('button');
+const button = document.getElementById('playBtn');
+const uploadBtn = document.getElementById('uploadBtn');
+const fileInput = document.getElementById('fileInput');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.height = Math.floor(window.innerHeight * 0.8);
 const data = new Uint8Array(analyser.frequencyBinCount);
 
 let audioBuffer = null;
 let playing = false;
 let source = null;
+let secondsPlayed = 0; // single offset tracker in seconds
 
 analyser.fftSize = 2048;
 
-const decodeAudio = async (url) => {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
+async function decodeFromFile(file) {
+    const arrayBuffer = await file.arrayBuffer();
     return await audioContext.decodeAudioData(arrayBuffer);
-};
+}
 
-// Load the audio buffer
 (async () => {
     try {
-        audioBuffer = await decodeAudio('sample.mp3');
+        audioBuffer = await audioContext.decodeAudioData(await fetch('sample.mp3').then(res => res.arrayBuffer()));
         analyser.connect(audioContext.destination);
         console.log('Audio loaded successfully');
     } catch (error) {
@@ -34,7 +35,6 @@ const decodeAudio = async (url) => {
 
 function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
-	
 	// our analyser will put frequency info into our data aray
 	analyser.getByteFrequencyData(data)
 	ctx.strokeStyle = `black`
@@ -52,16 +52,36 @@ function draw() {
 }
 
 button.addEventListener('click', () => {
-	button.innerHTML = playing ? 'Play' : 'Pause';
-	if (playing) {
-		source.stop();
-		playing = false;
-	} else {
-		source = audioContext.createBufferSource();
-		source.buffer = audioBuffer;
-		source.connect(analyser);
-		source.start();
-		playing = true;
-	}
-	draw();
+    if (!audioBuffer) return;
+    if (audioContext.state === 'suspended') audioContext.resume();
+    if (playing) {
+        secondsPlayed += (audioContext.currentTime - source._startedAt);
+        source.stop();
+        playing = false;
+        button.innerHTML = 'Play';
+    } else {
+        source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(analyser);
+        source._startedAt = audioContext.currentTime;
+        source.start(0, secondsPlayed);
+        playing = true;
+        button.innerHTML = 'Pause';
+        source.onended = () => {
+            playing = false;
+            secondsPlayed = 0;
+            button.innerHTML = 'Play';
+        };
+    }
+    draw();
+});
+
+fileInput.addEventListener('change', async (e) => {
+    source.stop();
+    playing = false;
+    button.innerHTML = 'Play';
+    secondsPlayed = 0;
+    audioBuffer = await decodeFromFile(e.target.files && e.target.files[0]);
+    draw();
+    console.log(audioBuffer);
 });

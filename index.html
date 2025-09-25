@@ -9,9 +9,11 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <button id="button" class="play-button">Play</button>
-  <button class="upload-button">Upload File</button>
-  <input type="file" class="upload-input" accept="audio/*">
+  <button id="playBtn" class="play-button">Play</button>
+  <div class="upload-wrapper">
+    <button id="uploadBtn" class="upload-button">Upload File</button>
+    <input id="fileInput" class="upload-input" type="file" accept="audio/*">
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
