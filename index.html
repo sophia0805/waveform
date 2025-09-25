@@ -9,10 +9,18 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <button id="playBtn" class="play-button">Play</button>
-  <div class="upload-wrapper">
-    <button id="uploadBtn" class="upload-button">Upload File</button>
-    <input id="fileInput" class="upload-input" type="file" accept="audio/*">
+  <div class="control">
+    <div class="control-left">
+      <button id="playBtn" class="play-button">Play</button>
+      <div class="upload-wrapper">
+        <button id="uploadBtn" class="upload-button">Upload File</button>
+        <input id="fileInput" class="upload-input" type="file" accept="audio/*">
+      </div>
+    </div>
+    <div class="control-right">
+      <input id="colorPicker" type="color" value="#000000">
+      <div class="color-readout">Selected Color: <span id="colorText">#ffffff</span></div>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

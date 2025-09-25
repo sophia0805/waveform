@@ -17,6 +17,23 @@ body {
     outline: 2px dashed transparent;
 }
 
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    gap: 12px;
+}
+.control-left, .control-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.color-readout {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
 .play-button {
     top: 0;
     padding: 10px 20px;

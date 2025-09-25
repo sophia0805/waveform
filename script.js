@@ -4,6 +4,8 @@ const analyser = audioContext.createAnalyser();
 const button = document.getElementById('playBtn');
 const uploadBtn = document.getElementById('uploadBtn');
 const fileInput = document.getElementById('fileInput');
+const colorPicker = document.getElementById('colorPicker');
+const colorText = document.getElementById('colorText');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -37,7 +39,7 @@ function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
 	// our analyser will put frequency info into our data aray
 	analyser.getByteFrequencyData(data)
-	ctx.strokeStyle = `black`
+	ctx.strokeStyle = colorPicker.value;
 	ctx.beginPath();
 	ctx.moveTo(0, canvas.height);
 	for (let i = 0; i < data.length; i++) {
@@ -77,11 +79,21 @@ button.addEventListener('click', () => {
 });
 
 fileInput.addEventListener('change', async (e) => {
-    source.stop();
-    playing = false;
+    if (source) {
+		source.stop();
+	}
+	playing = false;
     button.innerHTML = 'Play';
     secondsPlayed = 0;
     audioBuffer = await decodeFromFile(e.target.files && e.target.files[0]);
     draw();
     console.log(audioBuffer);
 });
+
+// Update waveform color when color picker changes
+if (colorPicker) {
+    colorPicker.addEventListener('input', (e) => {
+        if (colorText) colorText.textContent = e.target.value;
+        draw(); // Redraw with new color
+    });
+}
