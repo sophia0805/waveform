@@ -12,12 +12,23 @@
   <div class="control">
     <div class="control-left">
       <button id="playBtn" class="play-button">Play</button>
+      <button id="recordBtn" class="record-button">Record</button>
       <div class="upload-wrapper">
         <button id="uploadBtn" class="upload-button">Upload File</button>
         <input id="fileInput" class="upload-input" type="file" accept="audio/*">
-      </div>
+      </div> 
+      <div id="fileName" class="file-name">Current File: default.mp3</div>
     </div>
     <div class="control-right">
+       <div id="word-circle">
+         <label for="word-circle">Word:</label>
+         <input id="word-circle-input" type="text" value="idk">
+       </div>
+      <label for="options">Types:</label>
+      <select id="options" name="options">
+          <option value="option1">Lined Graph</option>
+          <option value="option2">Word Circle</option>
+      </select>
       <input id="colorPicker" type="color" value="#000000">
       <div class="color-readout">Selected Color: <span id="colorText">#ffffff</span></div>
     </div>
