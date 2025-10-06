@@ -34,4 +34,4 @@ visualize any audio/song
 - i struggled coming up with features to add
 
 ### finished project:
-![](https://hc-cdn.hel1.your-objectstorage.com/s/v3/327dd817897d301a541fce4386a6839b010f5b69_image.png) 
+[![](https://hc-cdn.hel1.your-objectstorage.com/s/v3/327dd817897d301a541fce4386a6839b010f5b69_image.png) ](https://hc-cdn.hel1.your-objectstorage.com/s/v3/b9ab6701d7071eccbbf56cc9579fc5dff2794fea_image.png)
